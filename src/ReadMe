@@ -1,0 +1,78 @@
+The code is for implementing the multi-entry coupled similarity algorithm on Flickr Group Data.
+ReadMe by xz3030 at 4pm 02/06/2014 @ UTS
+
+****************************************************************
+How to run:
+light demo: toy_example.m
+large demo: coupled_run.m
+
+****************************************************************
+Folders:
+----src: code
+    ----coupled algorithm (--coupled_core/)
+	----coupled_config: configuration file
+	----coupled_run: main entrance of the whole program
+	----coupled_main: main entrance of the coupled algorithm
+	    ----coupled_IaAVS: intra-coupled similarity
+	    ----coupled_IaAVS_imageF: intra-coupled similarity for image feature
+	    ----coupled_IeAVS_IRSI: inter-coupled similarity
+ 	    (----coupled_COS: COS for single-entry features)
+	    (----coupled_COS_multi: COS for multi-entry features)
+	--experimental result comparison functions (--experiments/):
+	    ----coupled_predict_tag: tag recommendation task->precision and recall
+	    ----coupled_compare_user_image_similarity: comparison: user+image
+	    ----coupled_compare_popular_tag_user_bayesian: comparison: user+tag
+	    ----coupled_compare_image_similarity: comparison: image
+	    ----coupled_compare_popular_tag_bayesian: comparison: tag
+	----coupled_CKModes: kmodes clustering
+
+    ----NMF algorithm (--NMF/)
+	----run: main entrance of NMF program
+	    ----main_algorithm: main algorithm of NMF
+	    ----relational_modularity: determine how many clusters is the best
+	    ----soft_clustering: cluster based on NMF result
+	    ----assign_tags: tag recommendation task->precision and recall
+
+    ----pre-processing functions: (--extract_features/)
+	----extract_cm: extract color moment features
+	----extract_feature_colorhist: extract color histogram features
+	----feature_texture: extract lbp features
+	----(External function) DescriptorIO.py: extract sift features
+	----coupled_build_dictionary: building dictionary using kmeans for visual features
+	----coupled_build_bow: assign indexes for visual features bag-of-words representation
+	----load_features_v2: load visual features
+	----loadInfos: load metadata
+	
+    ----analyzing and demonstrating functions: (--experiments/)
+	----coupled_effect_of_num_nn: effect of the number of nearest neighbours
+	----result_figure1: clustering results -> top users and tags in each cluster, clustering image
+	----show_bar_result: bar image of tag recommendation result of NMF and coupled for all groups 
+	----show_result_cold_start: plot images of cold start problem of NMF and coupled for all groups 
+	----show_sim_image_compare: visualization of the result of different methods on nearest neighbour images
+	----analysis_image_sim: analyze image similarity based on multiple attributes and furthermore coupled similarity
+	----analysis_tag_sim: analyze tag similarity based on coupled decomposition
+
+----data: raw data and feature data
+    ----images: raw jpg images downloaded from Flickr
+    ----features: visual features except for SIFT
+    ----sift_features: sift features
+    ----xml: raw metadata
+    ----metadata: processed metadata by Python
+    ----user: user metadata
+    ----data_preprocess: processed data for each group
+    ----dictionary: dictionary of visual features
+    ----coupled_sim_: result of coupled algorithm
+
+
+----result: experimental results
+    ----xx_CP: coupled result
+    ----xx_mat: NMF clustering result
+    ----xx_mat_tag: NMF tag recommendation result
+
+
+How to run the program:
+(1) Download images and metadata using python scripts (main_process.py).
+(2) Extract image features
+(3) Run NMF or coupled algorithm using run.m or coupled_run.m respectively.
+
+
